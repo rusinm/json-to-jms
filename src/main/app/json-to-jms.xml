@@ -9,9 +9,8 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
     <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
     <flow name="json-to-jmsFlow1" doc:name="json-to-jmsFlow1">
-        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="sales" doc:name="HTTP"/>
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="sales" doc:name="HTTP"/>
         <byte-array-to-string-transformer doc:name="Byte Array to String"/>
-        <logger message="sales to be sent: #[payload]" level="INFO" doc:name="Logger"/>
         <jms:outbound-endpoint queue="sales" connector-ref="Active_MQ" doc:name="JMS"/>
     </flow>
 </mule>
